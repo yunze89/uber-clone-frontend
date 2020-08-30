@@ -4,7 +4,7 @@ import AppPresenter from "./AppPresenter";
 import { IS_LOGGED_IN } from "./AppQueries";
 
 interface IProps {
-  isLoggedIn: boolean;
+  isLoggedIn: boolean; //isLoggedIn props에 대한 타입설정
 }
 
 // 데이터를 쿼리로 가져온 후 컴포넌트에 데이터를 넘겨 렌더링하는 컴포넌트에게 prop로 값 전달

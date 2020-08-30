@@ -3,9 +3,10 @@ import ApolloClient, { Operation } from "apollo-boost";
 //graphql client인 apollo client 객체 생성
 const apolloClient = new ApolloClient({
   uri: "http://localhot:4000/graphql", //backend graphql endpoint
-  //로그인 여부에 대해 global state 관리위해 설정
+  //global state 공용으로 관리위해 설정
   clientState: {
     defaults: {
+      //로그인 관련 state
       auth: {
         __typename: "Auth",
         isLoggedIn: Boolean(localStorage.getItem("jwt")),

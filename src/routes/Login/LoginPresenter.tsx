@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Container, Header, Logo, Title, Footer, PhoneLogin, Subtitle, FakeInput, Grey, SocialLogin, SocialLink } from './LoginPresenter.styled';
 
@@ -6,6 +7,9 @@ interface IProps extends RouteComponentProps<any> { }
 
 const OutHomePresenter: React.SFC<IProps> = () => (
     <Container>
+        <Helmet>
+            <title>Login | Huber</title>
+        </Helmet>
         <Header>
             <Logo>
                 <Title>

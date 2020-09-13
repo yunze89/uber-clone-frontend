@@ -1,7 +1,7 @@
 import styled from '../../typed-components';
 
-const Container = styled.input`
-    boder: none;
+export const Container = styled.input`
+    border: none;
     border-bottom: 2px solid ${props => props.theme.greyColor};
     font-size: 20px;
     width: 100%;
@@ -20,5 +20,3 @@ const Container = styled.input`
         font-weight: 300;
     }
 `;
-
-export default Container;

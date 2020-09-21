@@ -6,6 +6,10 @@ import GlobalStyle from '../../global-styles';
 import { theme } from "../../theme";
 import { ThemeProvider } from "../../typed-components";
 
+//toast 사용 위한 container, css 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
 interface IProps {
   isLoggedIn: boolean; //isLoggedIn props에 대한 타입설정
 }
@@ -18,6 +22,7 @@ const AppContainer: any = (props: any) => (
       <AppPresenter isLoggedIn={props.data.auth.isLoggedIn} />
       {/* <div>{JSON.stringify(props.data)}</div> */}
     </ThemeProvider>
+    <ToastContainer draggable={true} position="bottom-center" />
   </>
 );
 

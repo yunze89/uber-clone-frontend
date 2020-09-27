@@ -2,6 +2,11 @@
 
 Client for the (N)Uber Clone Course on Nomad Academy. RaactJS, Apollo, Typescript
 
+## Scripts:
+
+  - precodegen : 백엔드에 정의된 모든 스키마를 다운받아 schema.json 파일 생성.
+  - codegen : precodegen으로 다운받은 스키마를 통해 실제 클라이언트에서 사용하는 타입생성. api.d.ts에 실제 클라이언트가 사용하는 스키마만 타입으로 생성
+
 ## Screen:
 
 ### Logged Out:
@@ -11,9 +16,9 @@ Client for the (N)Uber Clone Course on Nomad Academy. RaactJS, Apollo, Typescrip
   - [ ] Verify Phone Number
   - [ ] Social Login
 
-### Logged I
+### Logged In
 
-    - [ ] Home
+  - [ ] Home
   - [ ] Ride
   - [ ] Edit Account
   - [ ] Settings

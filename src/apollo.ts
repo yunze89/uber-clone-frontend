@@ -2,7 +2,7 @@ import ApolloClient, { Operation } from "apollo-boost";
 
 //graphql client인 apollo client 객체 생성
 const apolloClient = new ApolloClient({
-  uri: "http://localhot:4000/graphql", //backend graphql endpoint
+  uri: "http://localhost:4000/graphql", //backend graphql endpoint
   //global state 공용으로 관리위해 설정
   clientState: {
     defaults: {

@@ -20,10 +20,11 @@ interface IMutation {
     phoneNumber: string;
 }
 
-//class PhoneSignInMutation extends Mutation<any, IMutation> { }
-
 const PhoneLoginContainer: React.SFC<
-    RouteComponentProps<any>> = () => {
+    RouteComponentProps<any>> = props => {
+
+        const { history } = props;  //route props
+
         const [inputs, setInputs] = useState({
             countryCode: "+82", //기본 코드
             phoneNumber: "" //전화 번호})
@@ -69,10 +70,21 @@ const PhoneLoginContainer: React.SFC<
             //const { countryCode, phoneNumber } = this.state;
             console.log('submit', countryCode, phoneNumber);
 
-            //전화 번호 형태 정규식 검사 @TOFIX
-            const isValid = /^\+[1-9]+-[0-9]{10,11}$/.test(internationalPhoneNumber);
+            const phone = `${countryCode}${phoneNumber}`;
+            //전화 번호 형태 정규식 검사
+            const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(phone);
 
-            if (isValid) phoneSignIn({ variables: { phoneNumber: internationalPhoneNumber }, /*update: afterSubmit*/ });    //https://www.apollographql.com/docs/react/data/mutations/
+            if (isValid) {
+                //폰 로그인 mutation 호출
+                phoneSignIn({ variables: { phoneNumber: internationalPhoneNumber }, /*update: afterSubmit*/ });    //https://www.apollographql.com/docs/react/data/mutations/
+                //verify-phone 페이지로 자동으로 이동, 폰 번호를 state로 전달
+                history.push({
+                    pathname: 'verify-phone',
+                    state: {
+                        phone
+                    }
+                })
+            }
             //입력값 형식 에러 시 toast메시지 발생
             else
                 toast.error('Please write a valid phone number' + internationalPhoneNumber);   //@주의 AppContiner에서 ToastContainer를 포함시켜야 한다.

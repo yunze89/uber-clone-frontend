@@ -22,7 +22,8 @@ const LoggedOutRoutes: React.SFC = () => (
   <Switch>
     <Route path={"/"} exact={true} component={Login} />
     <Route path={"/phone-login"} exact={true} component={PhoneLogin} />
-    <Route path={"/verify-phone/:number"} exact={true} component={VerifyPhone} />
+    {/* <Route path={"/verify-phone/:number"} exact={true} component={VerifyPhone} /> number를 url parameter로 전달하면 보안상으로 안되므로 history의 state로 전달하도록 수정*/}
+    <Route path={"/verify-phone"} exact={true} component={VerifyPhone} />
     <Route path={"/social-login"} exact={true} component={SocialLogin} />
     <Redirect from={"*"} to={"/"} />
   </Switch>

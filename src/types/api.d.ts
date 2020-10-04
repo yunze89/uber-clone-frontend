@@ -1,5 +1,3 @@
-//yarn codegen으로 생성된 클라이언트 스키마 타입 스크립트
-
 /* tslint:disable */
 /* eslint-disable */
 // @generated
@@ -21,6 +19,31 @@ export interface startPhoneVerification {
 
 export interface startPhoneVerificationVariables {
   phoneNumber: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: verfiyPhone
+// ====================================================
+
+export interface verfiyPhone_CompletePhoneVerification {
+  __typename: "CompletePhoneVerificationResponse";
+  ok: boolean;
+  error: string | null;
+  token: string | null;
+}
+
+export interface verfiyPhone {
+  CompletePhoneVerification: verfiyPhone_CompletePhoneVerification | null;
+}
+
+export interface verfiyPhoneVariables {
+  phoneNumber: string;
+  key: string;
 }
 
 /* tslint:disable */

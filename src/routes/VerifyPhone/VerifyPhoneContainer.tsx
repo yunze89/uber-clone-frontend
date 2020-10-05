@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from "react-router-dom";
 import VerifyPhonePresenter from './VerifyPhonePresenter';
+import { LOG_USER_IN } from '../../innerQueries';
 import { VERIFY_PHONE } from './VerifyPhone.queries';
 import { verfiyPhone, verfiyPhoneVariables } from "../../types/api";
 import { useMutation } from 'react-apollo';
@@ -37,12 +38,21 @@ const VerifyPhoneContainer: React.SFC<IProps> = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    const [logUserIn] = useMutation(LOG_USER_IN);
+
     const onVerifyCompleted = (data: any) => {
         const { CompletePhoneVerification } = data;
         console.log(data);
+
         if (CompletePhoneVerification.ok) {
-            toast.success("You're verified, loggin in now");
-            console.log(CompletePhoneVerification);
+            if (CompletePhoneVerification.token) {
+                logUserIn({
+                    variables: {
+                        token: CompletePhoneVerification.token
+                    }
+                });
+                toast.success("You're verified, loggin in now");
+            }
         } else {
             toast.error(CompletePhoneVerification.error);
         }

@@ -76,7 +76,7 @@ const PhoneLoginContainer: React.SFC<
 
             if (isValid) {
                 //폰 로그인 mutation 호출
-                phoneSignIn({ variables: { phoneNumber: internationalPhoneNumber }, /*update: afterSubmit*/ });    //https://www.apollographql.com/docs/react/data/mutations/
+                phoneSignIn({ variables: { phoneNumber: phone }, /*update: afterSubmit*/ });    //https://www.apollographql.com/docs/react/data/mutations/
                 //verify-phone 페이지로 자동으로 이동, 폰 번호를 state로 전달
                 history.push({
                     pathname: 'verify-phone',

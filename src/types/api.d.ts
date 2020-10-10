@@ -27,6 +27,33 @@ export interface startPhoneVerificationVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: facebookConnect
+// ====================================================
+
+export interface facebookConnect_FacebookConnect {
+  __typename: "FacebookConnectResponse";
+  ok: boolean;
+  error: string | null;
+  token: string | null;
+}
+
+export interface facebookConnect {
+  FacebookConnect: facebookConnect_FacebookConnect | null;
+}
+
+export interface facebookConnectVariables {
+  firstName: string;
+  lastName: string;
+  email?: string | null;
+  fbId?: string | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: verfiyPhone
 // ====================================================
 

@@ -30,6 +30,9 @@ const PhoneLoginContainer: React.SFC<
             phoneNumber: "" //전화 번호})
         });
 
+        const { countryCode, phoneNumber } = inputs;
+        const internationalPhoneNumber = `${countryCode}-${phoneNumber}`;
+
         //테스트 : mutation 전송 후 응답 콜백 (update)
         // const afterSubmit = (cache: any, data: any) => {
         //     console.log(data);
@@ -40,6 +43,13 @@ const PhoneLoginContainer: React.SFC<
             const { StartPhoneVerification } = data;
             console.log(data);
             if (StartPhoneVerification.ok) {
+                toast.success("SMS Sent! Redorecting You...");
+                history.push({
+                    pathname: "/verify-phone",
+                    state: {
+                        phone: internationalPhoneNumber
+                    }
+                })
                 return;
             }
             else {
@@ -47,9 +57,7 @@ const PhoneLoginContainer: React.SFC<
             }
         }
 
-        const { countryCode, phoneNumber } = inputs;
-        const internationalPhoneNumber = `${countryCode}-${phoneNumber}`;
-        const [phoneSignIn, { loading/*, error, data*/ }] = useMutation<
+        const [phoneSignInMutation, { loading/*, error, data*/ }] = useMutation<
             startPhoneVerification,
             startPhoneVerificationVariables
         >(PHONE_SIGN_IN, { variables: { phoneNumber }, onCompleted: onSignInCompleted }); //https://www.apollographql.com/docs/tutorial/mutations/
@@ -76,7 +84,7 @@ const PhoneLoginContainer: React.SFC<
 
             if (isValid) {
                 //폰 로그인 mutation 호출
-                phoneSignIn({ variables: { phoneNumber: phone }, /*update: afterSubmit*/ });    //https://www.apollographql.com/docs/react/data/mutations/
+                phoneSignInMutation({ variables: { phoneNumber: phone }, /*update: afterSubmit*/ });    //https://www.apollographql.com/docs/react/data/mutations/
                 //verify-phone 페이지로 자동으로 이동, 폰 번호를 state로 전달
                 history.push({
                     pathname: 'verify-phone',

@@ -5,7 +5,11 @@ import { Container, Title, BackArrowExtended, Icon, Link } from './SocialLoginPr
 //해당 모듈에 대한 타입 명시가 존재하지 않아 에러 발새함. 타입을 직접 정의해서 types/facebook-login-render-props.d.ts 로 추가하였음
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
-const socialLoginPresenter = () => (
+interface IProps {
+    loginCallback: (response: any) => void;
+}
+
+const socialLoginPresenter: React.SFC<IProps> = ({ loginCallback }) => (
     <Container>
         <Helmet>
             <title>Social Login | Huber</title>
@@ -16,7 +20,7 @@ const socialLoginPresenter = () => (
             appId="367381861297088"
             autoLoad={false}
             fields="name,first_name,last_name,email"
-            callback={() => { }}
+            callback={loginCallback}
             render={(renderProps: any) => (
                 <Link onClick={renderProps.onClick}>
                     <Icon>

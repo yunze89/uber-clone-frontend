@@ -5,14 +5,20 @@ import styled from "../../typed-components";
 
 const Container = styled.div``;
 
-const HomePresenter = () => (
+interface IProps {
+  isMenuOpen: boolean;
+  toggleMenu: () => void;
+}
+
+const HomePresenter: React.SFC<IProps> = ({ isMenuOpen, toggleMenu }) => (
   <Container>
     <Helmet>
       <title>Home | Huber</title>
     </Helmet>
     <Sidebar
       sidebar={<b>Sidebar contents</b>}
-      open={true}
+      open={isMenuOpen}
+      onSetOpen={toggleMenu}
       styles={{
         sidebar: {
           background: "white",
@@ -21,7 +27,7 @@ const HomePresenter = () => (
         },
       }}
     >
-      <button>Open sidebar</button>
+      <button onClick={toggleMenu}>Open sidebar</button>
     </Sidebar>
     hello
   </Container>

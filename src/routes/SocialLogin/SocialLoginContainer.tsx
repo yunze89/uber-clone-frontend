@@ -10,12 +10,12 @@ import { FACEBOOK_CONNECT } from "./SocialLogin.queries";
 import { LOG_USER_IN } from "../../innerQueries";
 import { toast } from "react-toastify";
 
-interface IState {
-  firstName: string;
-  lastName: string;
-  email?: string;
-  fbId: string;
-}
+// interface IState {
+//   firstName: string;
+//   lastName: string;
+//   email?: string;
+//   fbId: string;
+// }
 interface IProps extends RouteComponentProps<any> {}
 
 const SocialLoginContainer: React.SFC<IProps> = () => {

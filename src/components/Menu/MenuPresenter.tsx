@@ -11,29 +11,49 @@ import {
   Grid,
   ToggleDriving,
 } from "./MenuPresenter.styled";
+import { MutationFunction } from "react-apollo";
+import { userProfile, toggleDriving } from "../../types/api";
 
-const MenuPresenter: React.SFC = () => (
+interface IProps {
+  data?: userProfile;
+  loading: boolean;
+  ToggleDrivingMutation: MutationFunction<toggleDriving>;
+}
+
+const MenuPresenter: React.SFC<IProps> = ({
+  data: { GetMyProfile: { user = null } = {} } = { GetMyProfile: {} },
+  loading,
+  ToggleDrivingMutation,
+}) => (
   <Container>
-    <Header>
-      <Grid>
-        <Link to={"/edit-account"}>
-          <Image
-            src={
-              "https://yt3.ggpht.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAAA/HTJy-KJ4F2c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
-            }
-          />
-        </Link>
-        <Text>
-          <Name>Yunsuk Hong</Name>
-          <Rating>4.5</Rating>
-        </Text>
-      </Grid>
-    </Header>
-    <SLink to="/trips">Your Trips</SLink>
-    <SLink to="/settings">Settings</SLink>
-    <ToggleDriving isDriving={true}>
-      {true ? "Stop driving" : "Start driving"}
-    </ToggleDriving>
+    {!loading && user && user.fullName && (
+      <React.Fragment>
+        <Header>
+          <Grid>
+            <Link to={"/edit-account"}>
+              <Image
+                src={
+                  user.profilePhoto ||
+                  "https://yt3.ggpht.com/-CTwXMuZRaWw/AAAAAAAAAAI/AAAAAAAAAAA/HTJy-KJ4F2c/s88-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                }
+              />
+            </Link>
+            <Text>
+              <Name>{user.fullName}</Name>
+              <Rating></Rating>
+            </Text>
+          </Grid>
+        </Header>
+        <SLink to="/trips">Your Trips</SLink>
+        <SLink to="/settings">Settings</SLink>
+        <ToggleDriving
+          onClick={() => ToggleDrivingMutation()}
+          isDriving={user.isDriving}
+        >
+          {user.isDriving ? "Stop driving" : "Start driving"}
+        </ToggleDriving>
+      </React.Fragment>
+    )}
   </Container>
 );
 

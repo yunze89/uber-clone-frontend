@@ -23,6 +23,32 @@ export interface toggleDriving {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL mutation operation: updateProfile
+// ====================================================
+
+export interface updateProfile_UpdateMyProfile {
+  __typename: "UpdateMyProfileResponse";
+  ok: boolean;
+  error: string | null;
+}
+
+export interface updateProfile {
+  UpdateMyProfile: updateProfile_UpdateMyProfile;
+}
+
+export interface updateProfileVariables {
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePhoto: string;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL mutation operation: startPhoneVerification
 // ====================================================
 
@@ -103,8 +129,12 @@ export interface verfiyPhoneVariables {
 
 export interface userProfile_GetMyProfile_user {
   __typename: "User";
+  id: number;
   profilePhoto: string | null;
   fullName: string | null;
+  firstName: string;
+  lastName: string;
+  email: string | null;
   isDriving: boolean;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import EditAccountPresenter from "./EditAccountPresenter";
 import { useQuery, useMutation } from "react-apollo";
@@ -38,29 +38,10 @@ const EditAccountContainer: React.SFC<IProps> = () => {
     } = e;
 
     setState({
+      ...state,
       [name]: value,
-    } as any);
+    } as IState);
   };
-
-  const { data } = useQuery<userProfile>(USER_PROFILE, {
-    fetchPolicy: "no-cache",
-  });
-  if (data && "GetMyProfile" in data) {
-    const {
-      GetMyProfile: { user },
-    } = data;
-    if (user) {
-      const { firstName, lastName, email, profilePhoto } = user;
-      const loading = false;
-      setState({
-        email,
-        firstName,
-        lastName,
-        profilePhoto,
-        loading,
-      } as any);
-    }
-  }
 
   const [
     updateProfileMutation,
@@ -69,11 +50,36 @@ const EditAccountContainer: React.SFC<IProps> = () => {
     variables: { email, firstName, lastName, profilePhoto },
     refetchQueries: [{ query: USER_PROFILE }],
     onCompleted: (data) => {
+      console.log("mutation completed", data);
       const { UpdateMyProfile } = data;
       if (UpdateMyProfile.ok) toast.success("Profile updated!");
       else if (UpdateMyProfile.error) toast.error(UpdateMyProfile.error);
     },
   });
+
+  const { data } = useQuery<userProfile>(USER_PROFILE, {
+    fetchPolicy: "no-cache",
+  });
+
+  useEffect(() => {
+    if (data && "GetMyProfile" in data) {
+      const {
+        GetMyProfile: { user },
+      } = data;
+
+      if (user) {
+        const { firstName, lastName, email, profilePhoto } = user;
+        const loading = false;
+        setState({
+          email,
+          firstName,
+          lastName,
+          profilePhoto,
+          loading,
+        } as any);
+      }
+    }
+  }, [data]);
 
   return (
     <EditAccountPresenter
@@ -83,7 +89,11 @@ const EditAccountContainer: React.SFC<IProps> = () => {
       profilePhoto={profilePhoto}
       onInputChange={onInputChange}
       loading={mutationLoading || loading}
-      onSubmit={() => updateProfileMutation()}
+      onSubmit={() =>
+        updateProfileMutation({
+          variables: { email, firstName, lastName, profilePhoto },
+        })
+      }
     ></EditAccountPresenter>
   );
 };

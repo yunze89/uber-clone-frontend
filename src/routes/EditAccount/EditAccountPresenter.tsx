@@ -3,6 +3,7 @@ import { MutationFunction } from "react-apollo";
 import Helmet from "react-helmet";
 import Button from "../../components/Button";
 import Header from "../../components/Header";
+import PhotoInput from "../../components/PhotoInput";
 import {
   Container,
   ExtendedInput,
@@ -17,6 +18,7 @@ interface IProps {
   onSubmit?: MutationFunction;
   onInputChange: React.ChangeEventHandler<HTMLInputElement>;
   loading?: boolean;
+  uploading: boolean;
 }
 
 const EditAccountPresenter: React.SFC<IProps> = ({
@@ -27,6 +29,7 @@ const EditAccountPresenter: React.SFC<IProps> = ({
   onSubmit,
   onInputChange,
   loading,
+  uploading,
 }) => (
   <Container>
     <Helmet>
@@ -34,6 +37,11 @@ const EditAccountPresenter: React.SFC<IProps> = ({
     </Helmet>
     <Header title="Edit Account" backTo={"/"} />
     <ExtendedForm submitFn={onSubmit}>
+      <PhotoInput
+        uploading={uploading}
+        photoUrl={profilePhoto}
+        onChange={onInputChange}
+      ></PhotoInput>
       <ExtendedInput
         onChange={onInputChange}
         type="text"

@@ -4,11 +4,7 @@ import EditAccountPresenter from "./EditAccountPresenter";
 import { useQuery, useMutation } from "react-apollo";
 import { USER_PROFILE } from "../../sharedQueries.queries";
 import { UPDATE_PROFILE } from "./EditAccount.queries";
-import {
-  userProfile,
-  updateProfile,
-  updateProfileVariables,
-} from "../../types/api";
+import { userProfile, updateProfile } from "../../types/api";
 import { toast } from "react-toastify";
 
 interface IState {
@@ -17,6 +13,7 @@ interface IState {
   email: string;
   profilePhoto: string;
   loading: boolean;
+  uploading: boolean;
 }
 
 interface IProps extends RouteComponentProps<any> {}
@@ -28,9 +25,17 @@ const EditAccountContainer: React.SFC<IProps> = () => {
     lastName: "",
     profilePhoto: "",
     loading: true,
+    uploading: false,
   });
 
-  const { email, firstName, lastName, profilePhoto, loading } = state;
+  const {
+    email,
+    firstName,
+    lastName,
+    profilePhoto,
+    loading,
+    uploading,
+  } = state;
 
   const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const {
@@ -89,6 +94,7 @@ const EditAccountContainer: React.SFC<IProps> = () => {
       profilePhoto={profilePhoto}
       onInputChange={onInputChange}
       loading={mutationLoading || loading}
+      uploading={uploading}
       onSubmit={() =>
         updateProfileMutation({
           variables: { email, firstName, lastName, profilePhoto },

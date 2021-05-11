@@ -6,6 +6,8 @@ import { USER_PROFILE } from "../../sharedQueries.queries";
 import { UPDATE_PROFILE } from "./EditAccount.queries";
 import { userProfile, updateProfile } from "../../types/api";
 import { toast } from "react-toastify";
+import { CL_API_KEY } from "../../config/config";
+import axios from "axios";
 
 interface IState {
   firstName: string;
@@ -37,15 +39,46 @@ const EditAccountContainer: React.SFC<IProps> = () => {
     uploading,
   } = state;
 
-  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onInputChange: React.ChangeEventHandler<HTMLInputElement> = async (
+    e
+  ) => {
     const {
-      target: { name, value },
+      target: { name, value, files },
     } = e;
+
+    if (files) {
+      setState({
+        uploading: true,
+      } as any);
+
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      formData.append("api_key", CL_API_KEY);
+      formData.append("upload_preset", "an9loay9");
+      formData.append("timestamp", String(Date.now() / 1000));
+      const {
+        data: { secure_url },
+      } = await axios.post(
+        "https://api.cloudinary.com/v1_1/dcmpgwz4w/image/upload",
+        formData
+      );
+
+      console.log(secure_url);
+
+      if (secure_url) {
+        setState({
+          ...state,
+          profilePhoto: secure_url,
+          uploading: false,
+        } as any);
+      }
+      return;
+    }
 
     setState({
       ...state,
       [name]: value,
-    } as IState);
+    } as any);
   };
 
   const [

@@ -15,6 +15,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
     "apollo-boost": "^0.4.9",
+    "axios": "^0.21.1",
     "graphql": "^15.3.0",
     "react": "^16.13.1",
     "react-apollo": "^3.1.5",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/react-sidebar": "^3.0.0",
     "@types/react-toastify": "^4.1.0",
     "tslint": "^6.1.3",
